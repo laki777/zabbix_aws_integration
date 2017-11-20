@@ -1,5 +1,6 @@
 #! /usr/bin/env ruby
 
+require 'yaml'
 require 'aws-sdk-v1'
 
 if ARGV.size < 6
@@ -16,9 +17,8 @@ statistics_type = ARGV[5] || 'Average'
 diff_time = ARGV[6] || '600'
 period = ARGV[7] || '300'
 
-AWS.config(
-  region: region
-)
+config = YAML.load(File.read("/etc/zabbix/config.yml"))
+AWS.config(config)
 
 metrics = AWS::CloudWatch::Metric.new(
   namespace,
