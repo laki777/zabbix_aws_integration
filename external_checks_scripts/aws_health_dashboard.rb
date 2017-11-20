@@ -2,6 +2,10 @@
 
 require 'nokogiri'
 require 'net/http'
+require 'yaml'
+
+config = YAML.load(File.read("/etc/zabbix/config.yml"))
+AWS.config(config)
 
 if ARGV.empty?
   puts "Usage: #{$PROGRAM_NAME} [AWS Service] [AWS Region](option)"
