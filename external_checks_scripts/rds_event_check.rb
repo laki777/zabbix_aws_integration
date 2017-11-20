@@ -2,6 +2,10 @@
 
 require 'aws-sdk-v1'
 require 'net/http'
+require 'yaml'
+
+config = YAML.load(File.read("/etc/zabbix/config.yml"))
+AWS.config(config)
 
 if ARGV.size < 3
   puts "Usage: #{$PROGRAM_NAME} [DATABASE_IDENTIFIER] [DIFFERENCE_TIME(sec)] \
