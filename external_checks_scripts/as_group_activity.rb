@@ -2,6 +2,10 @@
 
 require 'aws-sdk-core'
 require 'net/http'
+require 'yaml'
+
+config = YAML.load(File.read("/etc/zabbix/config.yml"))
+AWS.config(config)
 
 unless ARGV.size > 1
   puts "Usage: #{$PROGRAM_NAME} [AUTO_SCALING_GROUP_NAME] [DIFFERENCE_TIME] \
