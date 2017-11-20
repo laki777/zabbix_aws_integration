@@ -2,6 +2,10 @@
 
 require 'aws-sdk'
 require 'net/http'
+require 'yaml'
+
+config = YAML.load(File.read("/etc/zabbix/config.yml"))
+AWS.config(config)
 
 if ARGV.size < 2
   puts "Usage: #{$PROGRAM_NAME} [CACHECLUSTER_IDENTIFIER] [DIFFERENCE_TIME(minute)]"
