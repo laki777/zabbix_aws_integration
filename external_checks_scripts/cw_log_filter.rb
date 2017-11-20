@@ -2,6 +2,9 @@
 
 require 'aws-sdk-core'
 require 'net/http'
+require 'yaml'
+
+config = YAML.load(File.read("/etc/zabbix/config.yml"))
 
 if ARGV.size < 3
   puts "Usage: #{$PROGRAM_NAME} [LOG_GROUP_NAME] \
@@ -18,7 +21,7 @@ diff_time = ARGV[2]
 now = Time.now.to_i
 
 begin
-  cloudwatchlogs = Aws::CloudWatchLogs::Client.new(region: region)
+  cloudwatchlogs = Aws::CloudWatchLogs::Client.new(access_key_id: config['access_key_id'], secret_access_key: config['secret_access_key'], region: config['region'])
 
   logs = cloudwatchlogs.filter_log_events(
     log_group_name:  log_group_name,
